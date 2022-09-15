@@ -9,12 +9,14 @@ public class AccountController:ControllerBase
 {
     private readonly ILogger<AccountController> _logger;
     private IAccountService _accountService;
+    private IRankingService _rankingService;
 
-
-    public AccountController(ILogger<AccountController> logger, IAccountService accountService)
+    public AccountController(ILogger<AccountController> logger, IAccountService accountService, IRankingService rankingService)
     {
         _logger = logger;
         _accountService = accountService;
+        _rankingService = rankingService;
+        
     }
     [HttpPost("Login")]
     public LoginResponse Login(LoginRequest loginRequest)

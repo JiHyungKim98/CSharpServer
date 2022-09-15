@@ -9,7 +9,6 @@ public class LoginRequest
 public class LoginResponse
 {
     public string Result { get; set; }
-    public UserInfo UserInfo { get; set; }
 }
 
 public class AccountCreateRequest
@@ -21,7 +20,6 @@ public class AccountCreateRequest
 public class AccountCreateResponse
 {
     public string Result { get; set; }
-    public UserInfo UserInfo { get; set; }
 }
 
 public class UserInfo

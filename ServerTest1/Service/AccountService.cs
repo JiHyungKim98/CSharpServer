@@ -5,10 +5,23 @@ namespace ServerTest1.Service;
 
 public class AccountService:IAccountService
 {
-    private Dictionary<string,Account> _accountDic { get; set; }
+    private Dictionary<string, Account> _accountDic { get; set; }
+
+
     public AccountService()
     {
         _accountDic = new Dictionary<string,Account>();
+    }
+
+    public bool isExist(string Id)
+    {
+        if(_accountDic.ContainsKey(Id))
+            return true;
+        return false;
+    }
+    public Dictionary<string, Account> AllUserAccount()
+    {
+        return _accountDic;
     }
 
     public LoginResponse Login(LoginRequest loginRequest)
@@ -17,7 +30,7 @@ public class AccountService:IAccountService
         // 로그인 하는데 정보가 없는 경우
         if (!_accountDic.ContainsKey(loginRequest.Id))
         {
-            response.Result = "Unknown Account";
+            response.Result = "Unknown Account!";
         }
         // 로그인 하는데 정보가 있는 경우
         else
@@ -27,7 +40,7 @@ public class AccountService:IAccountService
             
             if (loginRequest.Password.Equals(pass)) // 비밀번호 일치
             {
-                response.Result = "Hello "+loginRequest.Id+"!";
+                response.Result = "Login Success!";
             }
             else // 비밀번호 불일치
             {
@@ -56,7 +69,9 @@ public class AccountService:IAccountService
             account.CreateAt = DateTime.Now;
 
             _accountDic.Add(account.Id, account);
-            
+
+            //_rankingService.AddRanking(accountCreateRequest.Id, 0,true);
+
             response.Result = "ID has been created";
             
         }

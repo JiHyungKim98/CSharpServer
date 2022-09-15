@@ -20,24 +20,37 @@ public class RankingController:ControllerBase
     }
 
     [HttpPost("GetRanking")]
-    public List<string> GetRankings(UserInfo info)
+    public string GetRankings(string Id)
     {
         // 요청한 유저의 계정이 있는지 확인
-        
-        // 계정이 있다면?
-        //_rankingService.GetRankings();
-        // 응답으로 랭킹 리스트 전달
+        // 계정이 없으면
+        if (!_accountService.isExist(Id))
+            return "Unknown Account!";
 
-        return null;
+        // 계정이 있으면 랭킹 리스트 전달
+        var tmp=_rankingService.GetRankings(Id);
+        if (tmp.Count == 0)
+        {
+            return "Please Add Ranking";
+        }
+        else
+        {
+            string result = "Id : "+tmp[0]+"\n"
+                        +"Score : "+tmp[1]+"\n"
+                        + "Ranking : " + tmp[2];
+            return result;
+        }
     }
 
     [HttpPost("AddRanking")]
-    public bool AddRanking(string Id,int score)
+    public string AddRanking(string Id,int score)
     {
-        // 요청한 유저의 계정이 있는지 확인
-        //_rankingService.AddRanking(Id, score);
-        // 계정이 있다면?
-        // 보내준 점수를 등록
-        return false;
+        // 요청한 유저의 계정이 없는 경우
+        if (!_accountService.isExist(Id))
+            return "Unknown Account";
+
+        // 요청한 유저의 계정이 있는 경우 등록 및 업데이트
+        _rankingService.AddRanking(Id, score);
+        return "Ranking Update Success!";
     }
 }

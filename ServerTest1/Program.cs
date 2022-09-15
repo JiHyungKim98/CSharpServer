@@ -10,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(); // Swagger generator
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSingleton<IAccountService,AccountService>();
+builder.Services.AddSingleton<IRankingService,RankingService>();
 
 var app = builder.Build();
 
